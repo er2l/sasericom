@@ -1,0 +1,126 @@
+@layer base, starlight, theme, components, utilities;
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+
+@theme {
+  --color-accent-50: #fff5f5;
+  --color-accent-100: #ffe5e5;
+  --color-accent-200: #ffd0d0;
+  --color-accent-300: #ffabab;
+  --color-accent-400: #f97070;
+  --color-accent-500: #eb3434;
+  --color-accent-600: #d40000;
+  --color-accent-700: #b40000;
+  --color-accent-800: #940000;
+  --color-accent-900: #740000;
+  --color-accent-950: #430000;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Thème clair également sans JavaScript. */
+:root, :root[data-theme='light'], :root[data-theme='dark'] {
+  color-scheme: light;
+  --sl-color-white: #000;
+  --sl-color-black: #fff;
+  --sl-color-gray-1: #202020;
+  --sl-color-gray-2: #404040;
+  --sl-color-gray-3: #646464;
+  --sl-color-gray-4: #858585;
+  --sl-color-gray-5: #d4d4d4;
+  --sl-color-gray-6: #eeeeee;
+  --sl-color-gray-7: #f7f7f7;
+  --sl-color-accent: #d40000;
+  --sl-color-accent-high: #b40000;
+  --sl-color-accent-low: #fff5f5;
+  --sl-color-bg: #fff;
+  --sl-color-bg-nav: #fff;
+  --sl-color-bg-sidebar: #fff;
+  --sl-color-text: #404040;
+  --sl-color-text-accent: #b40000;
+  --sl-color-hairline-shade: #e2e2e2;
+  --sl-content-width: 68rem;
+  --sl-nav-height: 5rem;
+}
+a { text-underline-offset: .22em; }
+a:focus-visible { outline: 3px solid #d40000; outline-offset: 5px; }
+.corporate-header { max-width: 68rem; margin: auto; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.corporate-header a { color: #000; text-decoration: none; }
+.corporate-header nav a { display: inline-flex; gap: .8rem; padding: .6rem 0; font-size: .95rem; }
+.corporate-header nav a:hover { color: #d40000; }
+.brand { display: inline-flex; align-items: center; font-size: 1.4rem; font-weight: 700; }
+.brand img { display: block; width: 184px; height: auto; object-fit: contain; }
+.sl-markdown-content h2 { font-size: clamp(1.6rem, 3.2vw, 2.25rem); letter-spacing: -.025em; max-width: 32ch; text-wrap: balance; }
+.sl-markdown-content h3 { font-size: 1.22rem; letter-spacing: -.015em; }
+.expertise { border-top: 1px solid #d4d4d4; padding-top: 2.5rem; }
+.expertise > p { max-width: 78ch; }
+.sl-markdown-content .domains { margin-top: 2.5rem; }
+.sl-markdown-content .domains > section { margin: 0; padding: 1.5rem 0 2rem; border-top: 2px solid #d40000; }
+.domains h3 { margin-top: 0; }
+.sl-markdown-content .closing { margin-top: 3rem; padding: 2rem 0 1rem; border-top: 1px solid #d4d4d4; }
+.closing > a, .closing p:last-child a { font-size: 1.2rem; font-weight: 600; }
+.corporate-footer { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; align-items: center; margin-top: 4rem; padding-block: 1.75rem; border-top: 1px solid #d4d4d4; font-size: .875rem; }
+.corporate-footer > * + *::before { content: "·"; display: inline-block; margin-right: 1.5rem; color: #858585; }
+.corporate-footer a { color: #404040; }
+/* Les champs juridiques à compléter restent visibles dans la page publiée. */
+.sl-markdown-content strong { background: #fff1dd; color: #653800; padding: .1em .25em; }
+@media (max-width: 30rem) {
+  .brand img { width: 152px; }
+  .corporate-footer > * + *::before { content: none; }
+  .corporate-footer { flex-direction: column; align-items: flex-start; gap: .75rem; }
+}
+
+/* Le hero natif Starlight réunit titre, description et CTA sur un seul fond.
+   cqw mesure la largeur utile, sans inclure la barre de défilement. */
+.main-frame:has(.hero .hero-description) { container-type: inline-size; }
+.content-panel:has(.hero .hero-description) { padding-top: 0; }
+.hero:has(.hero-description) {
+  box-sizing: border-box;
+  width: 100cqw;
+  margin-inline: calc(50% - 50cqw);
+  min-height: 620px;
+  padding-block: clamp(3rem, 5vw, 5rem);
+  padding-inline: max(var(--sl-content-pad-x), calc((100cqw - 68rem) / 2));
+  grid-template-columns: 1fr;
+  background-image: linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.9) 36%, rgba(255,255,255,.65) 51%, rgba(255,255,255,.08) 73%), url('/brand/hero_img.png');
+  background-size: cover;
+  background-position: center, 58% 50%;
+  background-repeat: no-repeat;
+}
+.hero:has(.hero-description) .stack { max-width: 38rem; text-align: start; gap: 1.75rem; }
+.hero:has(.hero-description) .copy { align-items: flex-start; gap: 1.5rem; }
+.hero:has(.hero-description) h1 {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+  max-width: 18ch;
+  text-wrap: balance;
+  color: #000;
+}
+.hero:has(.hero-description) .tagline { color: #242424; }
+.hero .positioning { margin: 0; font-size: clamp(1.25rem, 2.2vw, 1.75rem); line-height: 1.4; font-weight: 500; color: #000; }
+.hero .hero-description { margin-top: 1.25rem; font-size: 1rem; line-height: 1.75; }
+.hero:has(.hero-description) .actions { justify-content: flex-start; }
+.hero:has(.hero-description) .sl-link-button {
+  padding: .85rem 1.3rem;
+  background: #d40000;
+  color: #fff;
+  border: 0;
+  border-radius: 2px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.hero:has(.hero-description) .sl-link-button:hover { background: #b40000; }
+.sl-container:has(.hero .hero-description) > .sl-markdown-content { margin-top: 0; }
+.sl-container:has(.hero .hero-description) .expertise {
+  border-top: 0;
+  padding-top: clamp(3rem, 6vw, 5rem);
+}
+@media (max-width: 50rem) {
+  .hero:has(.hero-description) {
+    min-height: 0;
+    background-image: linear-gradient(90deg, rgba(255,255,255,.94), rgba(255,255,255,.82)), url('/brand/hero_img.png');
+    background-position: center, 58% 50%;
+  }
+}
